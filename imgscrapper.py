@@ -10,9 +10,9 @@ def checking(links):
     arr=[]
     for m in links:
         if(m[-3:]=="jpg" or m[-3:]=="png" or m[-3:]=="gif"):
-            arr.append(l)
+            arr.append(m)
     return arr
- 
+
 name = raw_input("Enter the name of the picture: ")
 URL = "https://www.google.com/search?site=&tbm=isch&q=%s"%name
 page = requests.get(URL)
@@ -45,7 +45,7 @@ for img_url in img :
     	store = requests.request('get',img_url)
     	z = open('scrapimages/%s' % img_url.split('/')[-1], 'w')
     	z.write( store.content)
-    	z.close()    
+    	z.close()
 	count+=1
     except:
         failed +=1
@@ -58,8 +58,9 @@ for file in files:
     rem+=1
     new_name = './scrapimages/'+(str(rem) +'.jpg')
     os.rename(file, new_name)
-    
+
 
 print
 print "Done. %s images downloaded!"%count
 print "%s images failed to download!"%failed
+
