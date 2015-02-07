@@ -3,6 +3,7 @@
 import os, sys
 from PIL import Image
 import glob
+import shutil
 
 if not os.path.exists('cropimages'):
     os.makedirs('cropimages')
@@ -33,7 +34,6 @@ def resize1(img, box, out):
     img.save(out, "JPEG", quality=75)
 
 box = (200,200)
-rem = 1
 files = glob.glob('./scrapimages/*.jpg')
 for filename in files:
     img = Image.open(filename)
@@ -43,14 +43,12 @@ for filename in files:
         img.save(out, "JPEG")
         out.close()
     else:
-        out = './cropimages/'+(str(rem) +'_crop.jpg')
-        rem+=1
+        out = file(os.path.splitext(filename)[0]+"_crop.jpg", "w")
         resize1(img,box,out)
 
 count = 0
 sel = glob.glob('./scrapimages/*_crop.jpg')
 for file in sel:
-    count+=1
-    new_name = './cropimages/'+(str(count) +'_cropn.jpg')
-    os.rename(file, new_name)
+    m = './cropimages'
+    shutil.move(file,m)
 print "Done! All images are resized."
